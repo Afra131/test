@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">A6_Group8</string>
     <string name="get_activity">Get Activity</string>
+    <string name="image_icon">Image Icon</string>
 </resources>

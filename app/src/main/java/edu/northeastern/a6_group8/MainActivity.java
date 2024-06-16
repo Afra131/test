@@ -26,4 +26,8 @@ public class MainActivity extends AppCompatActivity {
     public void clickGetWeather(View v) {
 //        startActivity(new Intent(MainActivity.this, FutureActivity.class));
     }
+
+    public void checkWeatherActivity(View view){
+        startActivity(new Intent(MainActivity.this, WeatherActivity.class));
+    }
 }

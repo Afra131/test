@@ -1,30 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".WeatherActivity">
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weather Forecast"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/editCity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <EditText
         android:id="@+id/editCity"
-        android:hint="Enter city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/btnGetWeather"/>
+        android:hint="Enter city"
+        app:layout_constraintBottom_toTopOf="@+id/btnGetWeather"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_text" />
 
     <Button
         android:id="@+id/btnGetWeather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get Weather"
-        android:layout_alignParentRight="true"/>
+        android:text="Get City Weather"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewWeather"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editCity" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewWeather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editCity"/>
+        app:layout_constraintBottom_toTopOf="@+id/latitude_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGetWeather" />
 
-</RelativeLayout>
+    <EditText
+        android:id="@+id/latitude_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter Latitude"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@+id/fetch_weather_button"
+        app:layout_constraintEnd_toStartOf="@+id/longitude_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewWeather"
+        app:layout_constraintWidth_percent="0.4" />
+
+    <EditText
+        android:id="@+id/longitude_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter Longitude"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@id/fetch_weather_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/latitude_input"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewWeather"
+        app:layout_constraintWidth_percent="0.4" />
+
+    <Button
+        android:id="@+id/fetch_weather_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fetch Location Weather"
+        app:layout_constraintBottom_toTopOf="@+id/toggle_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/latitude_input" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/weather_info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggle_button"/>
+
+    <Button
+        android:id="@+id/toggle_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Detailed"
+        app:layout_constraintBottom_toTopOf="@+id/weather_info_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fetch_weather_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

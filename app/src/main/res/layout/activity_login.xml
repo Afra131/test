@@ -28,10 +28,10 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editLoginEmail"
+            android:id="@+id/editLoginName"
             android:inputType="textEmailAddress"
             android:layout_marginTop="10dp"
-            android:hint="Email"/>
+            android:hint="User Name"/>
 
         <EditText
             android:layout_width="match_parent"

@@ -27,8 +27,12 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -58,16 +62,16 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt_user = username.getText().toString();
-                String txt_email = email.getText().toString();
-                String txt_pwd = password.getText().toString();
+                String txtUser = username.getText().toString();
+                String txtEmail = email.getText().toString();
+                String txtPwd = password.getText().toString();
 
-                if (TextUtils.isEmpty(txt_user) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_pwd)){
+                if (TextUtils.isEmpty(txtUser) || TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPwd)) {
                     Toast.makeText(RegisterActivity.this, "All fields need to be filled", Toast.LENGTH_SHORT).show();
-                } else if (txt_pwd.length() < 6){
-                    Toast.makeText(RegisterActivity.this, "Password: at least 6 characters",Toast.LENGTH_SHORT).show();
+                } else if (txtPwd.length() < 6) {
+                    Toast.makeText(RegisterActivity.this, "Password: at least 6 characters", Toast.LENGTH_SHORT).show();
                 } else {
-                    register(txt_user, txt_email, txt_pwd);
+                    validateUser(txtUser, txtEmail, txtPwd);
                 }
             }
         });
@@ -76,6 +80,44 @@ public class RegisterActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Register");
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+    }
+
+    private void validateUser(final String username, final String email, final String password) {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
+
+        // Check if the username exists
+        Query usernameQuery = usersRef.orderByChild("username").equalTo(username);
+        usernameQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Toast.makeText(RegisterActivity.this, "Username is already taken", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Check if the email exists
+                    Query emailQuery = usersRef.orderByChild("email").equalTo(email);
+                    emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                Toast.makeText(RegisterActivity.this, "Email is already registered", Toast.LENGTH_SHORT).show();
+                            } else {
+                                register(username, email, password);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(RegisterActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(RegisterActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void register(String name, String email, String pwd){
@@ -91,6 +133,7 @@ public class RegisterActivity extends AppCompatActivity {
                             HashMap<String, String> hashMap = new HashMap<>();
                             hashMap.put("id", userid);
                             hashMap.put("username", name);
+                            hashMap.put("email", email);
                             hashMap.put("imageURL", "default");
 
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {

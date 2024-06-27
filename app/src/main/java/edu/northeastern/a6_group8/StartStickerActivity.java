@@ -11,8 +11,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class StartStickerActivity extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+public class StartStickerActivity extends AppCompatActivity {
+    FirebaseUser firebaseUser;
     Button login, register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +27,15 @@ public class StartStickerActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        //firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        // check if user is null
+        /**
+        *if (firebaseUser != null){
+        *    Intent intent = new Intent(StartStickerActivity.this, StickerActivity.class);
+        *    startActivity(intent);
+        *    finish();
+        *}
+         * */
         login = findViewById(R.id.btnStartlogin);
         register = findViewById(R.id.btnStartRegister);
 

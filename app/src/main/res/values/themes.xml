@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.A6_Group8" parent="Base.Theme.A6_Group8" />
+    <style name="MenuStyle" parent="Theme.AppCompat.Light">
+        <item name="android:background">@android:color/white</item>
+    </style>
 </resources>

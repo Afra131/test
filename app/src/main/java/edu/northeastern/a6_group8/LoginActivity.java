@@ -80,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     Log.d(TAG, "User login successful: " + username);
                     Intent intent = new Intent(LoginActivity.this, StickerActivity.class);
+                    intent.putExtra("username", username);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();

@@ -17,6 +17,19 @@ import com.google.firebase.auth.FirebaseUser;
 public class StartStickerActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     Button login, register;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // check if user is null
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null){
+            Intent intent = new Intent(StartStickerActivity.this, StickerActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,15 +40,6 @@ public class StartStickerActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        //firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        // check if user is null
-        /**
-        *if (firebaseUser != null){
-        *    Intent intent = new Intent(StartStickerActivity.this, StickerActivity.class);
-        *    startActivity(intent);
-        *    finish();
-        *}
-         * */
         login = findViewById(R.id.btnStartlogin);
         register = findViewById(R.id.btnStartRegister);
 

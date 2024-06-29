@@ -2,4 +2,5 @@
     <string name="app_name">A6_Group8</string>
     <string name="get_activity">Get Activity</string>
     <string name="image_icon">Image Icon</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

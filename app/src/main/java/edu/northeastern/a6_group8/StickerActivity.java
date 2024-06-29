@@ -14,7 +14,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +29,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
+
+import Fragments.ChatsFragment;
+import Fragments.StickerRecievedFragment;
+import Fragments.StickerSentFragment;
 
 public class StickerActivity extends AppCompatActivity {
 
@@ -74,6 +88,17 @@ public class StickerActivity extends AppCompatActivity {
         } else {
             Log.e(TAG, "No username passed to StickerActivity");
         }
+
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+        viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
+        viewPagerAdapter.addFragment(new StickerSentFragment(), "Stickers sent");
+        viewPagerAdapter.addFragment(new StickerRecievedFragment(), "Stickers Received");
+        viewPager.setAdapter(viewPagerAdapter);
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) ->
+                tab.setText(viewPagerAdapter.getPageTitle(position))
+        ).attach();
     }
 
     @Override
@@ -92,5 +117,34 @@ public class StickerActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static class ViewPagerAdapter extends FragmentStateAdapter {
+        private final ArrayList<Fragment> fragments = new ArrayList<>();
+        private final ArrayList<String> titles = new ArrayList<>();
+
+        public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            fragments.add(fragment);
+            titles.add(title);
+        }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getItemCount() {
+            return fragments.size();
+        }
+
+        public CharSequence getPageTitle(int position) {
+            return titles.get(position);
+        }
     }
 }

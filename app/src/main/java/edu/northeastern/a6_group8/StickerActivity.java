@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import Fragments.ChatsFragment;
 import Fragments.StickerRecievedFragment;
 import Fragments.StickerSentFragment;
+import Fragments.UsersFragment;
 
 public class StickerActivity extends AppCompatActivity {
 
@@ -93,6 +94,7 @@ public class StickerActivity extends AppCompatActivity {
         ViewPager2 viewPager = findViewById(R.id.viewPager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
         viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
+        viewPagerAdapter.addFragment(new UsersFragment(), "Users");
         viewPagerAdapter.addFragment(new StickerSentFragment(), "Stickers sent");
         viewPagerAdapter.addFragment(new StickerRecievedFragment(), "Stickers Received");
         viewPager.setAdapter(viewPagerAdapter);

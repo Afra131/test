@@ -30,8 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.ArrayList;
 
 import Fragments.ChatsFragment;
@@ -42,7 +40,6 @@ import Fragments.UsersFragment;
 public class StickerActivity extends AppCompatActivity {
 
     TextView usernameView;
-    FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
     private static final String TAG = "StickerActivity";
     @Override
@@ -61,7 +58,6 @@ public class StickerActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-
         usernameView = findViewById(R.id.stickerUserName);
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");

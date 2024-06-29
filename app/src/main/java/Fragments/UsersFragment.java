@@ -28,6 +28,7 @@ public class UsersFragment extends Fragment {
     private UserAdapter userAdapter;
     private ArrayList<User> arrUsers = new ArrayList<>();
     private DatabaseReference usersReference;
+    private String username;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +37,10 @@ public class UsersFragment extends Fragment {
         recyclerView = view.findViewById(R.id.userList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            username = bundle.getString("username");
+        }
         retrieveUsers();
         return view;
     }
@@ -52,7 +57,7 @@ public class UsersFragment extends Fragment {
                         arrUsers.add(user);
                     }
                 }
-                userAdapter = new UserAdapter(getContext(), arrUsers);
+                userAdapter = new UserAdapter(getContext(), arrUsers, username);
                 recyclerView.setAdapter(userAdapter);
             }
 

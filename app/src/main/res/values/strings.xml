@@ -8,4 +8,7 @@
     <string name="title_activity_message">MessageActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="please_enter_your_message_here">Please enter your message here</string>
+    <string name="send_message">Send Message</string>
+    <string name="send_stickers">Send Stickers</string>
 </resources>

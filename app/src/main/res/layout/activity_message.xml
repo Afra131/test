@@ -5,9 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e6e6e6"
     tools:context=".MessageActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/barLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <androidx.appcompat.widget.Toolbar
@@ -22,10 +24,49 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/messageUserName"
-                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
                 android:textColor="#fff"
                 android:textStyle="bold"/>
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/msgRecyclerView"
+        android:layout_below="@id/barLayout"
+        android:layout_above="@+id/bottom"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="#fff"
+        android:id="@+id/bottom"
+        android:layout_alignParentBottom="true">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editMsg"
+            android:layout_toStartOf="@+id/btnSticker"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:hint="@string/please_enter_your_message_here"/>
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/btnSticker"
+            android:layout_toStartOf="@+id/btnSend"
+            android:contentDescription="@string/send_stickers"
+            android:background="@drawable/ic_sticker"/>
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/btnSend"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/send_message"
+            android:background="@drawable/ic_send"/>
+        
+    </RelativeLayout>
 </RelativeLayout>

@@ -15,10 +15,12 @@ import java.util.ArrayList;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private Context context;
     private ArrayList<User> users;
+    private String username;
 
-    public UserAdapter(Context context, ArrayList<User> users){
+    public UserAdapter(Context context, ArrayList<User> users, String currentUsername){
         this.users = users;
         this.context = context;
+        this.username = currentUsername;
     }
 
     @NonNull
@@ -38,6 +40,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(context, MessageActivity.class);
                 intent.putExtra("userid", user.getId());
+                intent.putExtra("username", username);
                 context.startActivity(intent);
             }
         });

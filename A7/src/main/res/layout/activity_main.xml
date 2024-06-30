@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/recipientEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Recipient Username"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/selectStickerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Sticker"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/sendStickerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Sticker"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/viewHistoryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Sticker History"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/stickerCountsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sticker Counts"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+</LinearLayout>
+
+

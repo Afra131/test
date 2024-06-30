@@ -5,14 +5,17 @@ public class Sticker {
     private String stickerId;
     private String stickerName;
     private String stickerUrl;
+    private long timestamp;
 
     public Sticker() {
     }
 
-    public Sticker(String stickerId, String stickerName, String stickerUrl) {
+    public Sticker(String stickerId, String stickerName, String stickerUrl, long timestamp) {
         this.stickerId = stickerId;
         this.stickerName = stickerName;
         this.stickerUrl = stickerUrl;
+        this.timestamp = timestamp;
+
     }
 
     public String getStickerId() {
@@ -38,5 +41,15 @@ public class Sticker {
     public void setStickerUrl(String stickerUrl) {
         this.stickerUrl = stickerUrl;
     }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
 }
+
+
 

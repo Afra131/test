@@ -31,15 +31,23 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
+import Adapter.ChatAdapter;
 import Adapter.MessageAdapter;
 import Adapter.StickerAdapter;
 import Model.Chat;
+import Model.Message;
 import Model.Sticker;
 
 public class MessageActivity extends AppCompatActivity {
 
+    private static final int TYPE_CHAT_LEFT = 0;
+    private static final int TYPE_CHAT_RIGHT = 1;
+    private static final int TYPE_STICKER_LEFT = 2;
+    private static final int TYPE_STICKER_RIGHT = 3;
     TextView usernameView;
     FirebaseUser firebaseUser;
     DatabaseReference reference;
@@ -50,10 +58,13 @@ public class MessageActivity extends AppCompatActivity {
     String senderId;
     ArrayList<Sticker> arrStickers = new ArrayList<>();;
     RecyclerView stickerList;
-    MessageAdapter messageAdapter;
+    ChatAdapter chatAdapter;
     ArrayList<Chat> arrChats = new ArrayList<>();
+    ArrayList<Message> messageItems = new ArrayList<>();
     RecyclerView chatList;
     StickerAdapter stickerAdapter;
+    MessageAdapter messageAdapter;
+    String userid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +98,7 @@ public class MessageActivity extends AppCompatActivity {
         Log.d("MessageActivity", "Adapter set to RecyclerView");
 
         intent = getIntent();
-        String userid = intent.getStringExtra("userid");
+        userid = intent.getStringExtra("userid");
         String currentName = intent.getStringExtra("username");
         if (currentName != null) {
             getSenderId(currentName);
@@ -101,7 +112,7 @@ public class MessageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 usernameView.setText(user.getUsername());
-                readMessages(userid, senderId);
+                loadMessages(userid, senderId);
             }
 
             @Override
@@ -148,6 +159,7 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", msg);
+        hashMap.put("timestamp", System.currentTimeMillis());
 
         reference.child("Chats").push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -196,8 +208,75 @@ public class MessageActivity extends AppCompatActivity {
                         arrStickers.add(sticker);
                     }
                 }
-                stickerAdapter = new StickerAdapter(arrStickers, MessageActivity.this);
+                stickerAdapter = new StickerAdapter(arrStickers, MessageActivity.this, senderId, userid);
                 stickerList.setAdapter(stickerAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("loadStickers", "Database error: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    private void loadMessages(String senderId, String receiverId) {
+        DatabaseReference chatReference = FirebaseDatabase.getInstance().getReference("Chats");
+        chatReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                messageItems.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat != null &&
+                            (chat.getReceiver().equals(receiverId) && chat.getSender().equals(senderId) ||
+                                    chat.getReceiver().equals(senderId) && chat.getSender().equals(receiverId))) {
+                        int viewType = chat.getSender().equals(userid) ? TYPE_CHAT_LEFT : TYPE_CHAT_RIGHT;
+                        messageItems.add(new Message(chat, viewType));
+                    }
+                }
+                readStickers(senderId, receiverId);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("loadMessages", "Database error: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    private void readStickers(String senderId, String receiverId) {
+        DatabaseReference stickerReference = FirebaseDatabase.getInstance().getReference("StickerHistory");
+        stickerReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    HashMap<String, Object> stickerData = (HashMap<String, Object>) snapshot.getValue();
+                    if (stickerData != null) {
+                        String stickerId = (String) stickerData.get("stickerId");
+                        String stickerName = (String) stickerData.get("stickerName");
+                        String stickerUrl = (String) stickerData.get("stickerUrl");
+                        long timestamp = (Long) stickerData.get("timestamp");
+                        Sticker sticker = new Sticker(stickerId, stickerName, stickerUrl, timestamp);
+                        String sender = (String) stickerData.get("sender");
+                        String receiver = (String) stickerData.get("receiver");
+
+                        int viewType = sender.equals(senderId) ? TYPE_STICKER_LEFT : TYPE_STICKER_RIGHT;
+                        if ((sender.equals(senderId) && receiver.equals(receiverId)) ||
+                                (sender.equals(receiverId) && receiver.equals(senderId))) {
+                            messageItems.add(new Message(sticker, viewType));
+                        }
+                    }
+                }
+                Collections.sort(messageItems, new Comparator<Message>() {
+                    @Override
+                    public int compare(Message o1, Message o2) {
+                        long time1 = o1.isChat() ? o1.getChat().getTimestamp() : o1.getSticker().getTimestamp();
+                        long time2 = o2.isChat() ? o2.getChat().getTimestamp() : o2.getSticker().getTimestamp();
+                        return Long.compare(time1, time2);
+                    }
+                });
+                messageAdapter = new MessageAdapter(MessageActivity.this, messageItems, senderId);
+                chatList.setAdapter(messageAdapter);
             }
 
             @Override
@@ -221,8 +300,8 @@ public class MessageActivity extends AppCompatActivity {
                         arrChats.add(chat);
                     }
                 }
-                messageAdapter = new MessageAdapter(MessageActivity.this, arrChats, senderId);
-                chatList.setAdapter(messageAdapter);
+                chatAdapter = new ChatAdapter(MessageActivity.this, arrChats, senderId);
+                chatList.setAdapter(chatAdapter);
             }
 
             @Override

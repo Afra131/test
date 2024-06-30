@@ -26,10 +26,13 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerAdapter.ViewHold
 
     private ArrayList<Sticker> stickerList;
     private Context context;
-
-    public StickerAdapter(ArrayList<Sticker> stickerList, Context context) {
+    private String senderId;
+    private String receiverId;
+    public StickerAdapter(ArrayList<Sticker> stickerList, Context context, String senderId, String receiverId) {
         this.stickerList = stickerList;
         this.context = context;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
     }
 
     @NonNull
@@ -43,12 +46,19 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerAdapter.ViewHold
     public void onBindViewHolder(@NonNull StickerAdapter.ViewHolder holder, int position) {
         Sticker sticker = stickerList.get(position);
         Glide.with(context).load(sticker.getStickerUrl()).into(holder.stickerImageView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendSticker(senderId, receiverId, sticker);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return stickerList.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView stickerImageView;
@@ -67,6 +77,7 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerAdapter.ViewHold
         hashMap.put("stickerId", sticker.getStickerId());
         hashMap.put("stickerName", sticker.getStickerName());
         hashMap.put("stickerUrl", sticker.getStickerUrl());
+        hashMap.put("timestamp", System.currentTimeMillis());
 
         reference.child("StickerHistory").push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

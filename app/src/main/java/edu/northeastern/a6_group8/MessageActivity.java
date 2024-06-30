@@ -81,7 +81,6 @@ public class MessageActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         chatList.setLayoutManager(linearLayoutManager);
 
-        stickerAdapter = new StickerAdapter(arrStickers, this);
         stickerList = findViewById(R.id.stickerList);
         stickerList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
         stickerList.setAdapter(stickerAdapter);
@@ -197,7 +196,8 @@ public class MessageActivity extends AppCompatActivity {
                         arrStickers.add(sticker);
                     }
                 }
-                stickerAdapter.notifyDataSetChanged();
+                stickerAdapter = new StickerAdapter(arrStickers, MessageActivity.this);
+                stickerList.setAdapter(stickerAdapter);
             }
 
             @Override

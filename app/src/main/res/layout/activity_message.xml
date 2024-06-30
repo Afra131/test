@@ -38,42 +38,45 @@
         android:layout_below="@id/barLayout"
         android:layout_above="@+id/bottom"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/stickerList"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_above="@+id/bottom"
+        android:visibility="gone" />
+
     <RelativeLayout
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:layout_alignParentBottom="true"
         android:background="#fff"
-        android:id="@+id/bottom"
-        android:layout_alignParentBottom="true">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editMsg"
-            android:layout_toStartOf="@+id/btnSticker"
-            android:layout_centerVertical="true"
-            android:background="@android:color/transparent"
-            android:hint="@string/please_enter_your_message_here"/>
-        <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/btnSticker"
-            android:layout_toStartOf="@+id/btnSend"
-            android:contentDescription="@string/send_stickers"
-            android:background="@drawable/ic_sticker"/>
-        <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/btnSend"
-            android:layout_alignParentEnd="true"
-            android:contentDescription="@string/send_message"
-            android:background="@drawable/ic_send"/>
+        android:padding="5dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/stickerList"
+        <EditText
+            android:id="@+id/editMsg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/editMsg"
-            android:visibility="gone" />
-        
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/btnSticker"
+            android:background="@android:color/transparent"
+            android:hint="@string/please_enter_your_message_here" />
+
+        <ImageButton
+            android:id="@+id/btnSticker"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toStartOf="@+id/btnSend"
+            android:background="@drawable/ic_sticker"
+            android:contentDescription="@string/send_stickers" />
+
+        <ImageButton
+            android:id="@+id/btnSend"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_send"
+            android:contentDescription="@string/send_message" />
+
     </RelativeLayout>
 </RelativeLayout>

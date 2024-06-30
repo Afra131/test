@@ -87,8 +87,6 @@ public class StickerActivity extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         ViewPager2 viewPager = findViewById(R.id.viewPager);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
-        viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
         UsersFragment userFragment = new UsersFragment();
         StickerSentFragment stickerSentFragment = new StickerSentFragment();
         StickerRecievedFragment stickerRecievedFragment = new StickerRecievedFragment();
@@ -97,6 +95,7 @@ public class StickerActivity extends AppCompatActivity {
         userFragment.setArguments(bundle);
         stickerSentFragment.setArguments(bundle);
         stickerRecievedFragment.setArguments(bundle);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
         viewPagerAdapter.addFragment(userFragment, "Users");
         viewPagerAdapter.addFragment(stickerSentFragment, "Stickers sent");
         viewPagerAdapter.addFragment(stickerRecievedFragment, "Stickers Received");

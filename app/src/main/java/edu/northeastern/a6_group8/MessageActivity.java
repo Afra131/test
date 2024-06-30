@@ -35,12 +35,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
-import Adapter.ChatAdapter;
-import Adapter.MessageAdapter;
-import Adapter.StickerAdapter;
-import Model.Chat;
-import Model.Message;
-import Model.Sticker;
+import edu.northeastern.a6_group8.Adapter.ChatAdapter;
+import edu.northeastern.a6_group8.Adapter.MessageAdapter;
+import edu.northeastern.a6_group8.Adapter.StickerAdapter;
+import edu.northeastern.a6_group8.Model.Chat;
+import edu.northeastern.a6_group8.Model.Message;
+import edu.northeastern.a6_group8.Model.Sticker;
 
 public class MessageActivity extends AppCompatActivity {
 

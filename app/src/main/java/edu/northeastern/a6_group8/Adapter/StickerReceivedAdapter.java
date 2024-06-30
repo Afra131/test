@@ -1,4 +1,4 @@
-package Adapter;
+package edu.northeastern.a6_group8.Adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import Model.StickerReceived;
+import edu.northeastern.a6_group8.Model.StickerReceived;
 import edu.northeastern.a6_group8.R;
 
 public class StickerReceivedAdapter extends RecyclerView.Adapter<StickerReceivedAdapter.ViewHolder> {

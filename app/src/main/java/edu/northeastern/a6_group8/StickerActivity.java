@@ -31,10 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import Fragments.ChatsFragment;
-import Fragments.StickerRecievedFragment;
-import Fragments.StickerSentFragment;
-import Fragments.UsersFragment;
+import edu.northeastern.a6_group8.Fragments.StickerRecievedFragment;
+import edu.northeastern.a6_group8.Fragments.StickerSentFragment;
+import edu.northeastern.a6_group8.Fragments.UsersFragment;
 
 public class StickerActivity extends AppCompatActivity {
 

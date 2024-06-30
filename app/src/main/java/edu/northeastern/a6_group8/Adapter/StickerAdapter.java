@@ -1,4 +1,4 @@
-package Adapter;
+package edu.northeastern.a6_group8.Adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Model.Sticker;
+import edu.northeastern.a6_group8.Model.Sticker;
 import edu.northeastern.a6_group8.R;
 
 public class StickerAdapter extends RecyclerView.Adapter<StickerAdapter.ViewHolder> {

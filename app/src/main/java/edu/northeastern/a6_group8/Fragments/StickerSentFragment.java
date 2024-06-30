@@ -1,4 +1,4 @@
-package Fragments;
+package edu.northeastern.a6_group8.Fragments;
 
 import android.os.Bundle;
 
@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-import Model.Sticker;
+import edu.northeastern.a6_group8.Model.Sticker;
 import edu.northeastern.a6_group8.R;
 
 public class StickerSentFragment extends Fragment {

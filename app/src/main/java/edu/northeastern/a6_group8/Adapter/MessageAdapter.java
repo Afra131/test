@@ -1,4 +1,4 @@
-package Adapter;
+package edu.northeastern.a6_group8.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,9 +14,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import Model.Chat;
-import Model.Message;
-import Model.Sticker;
+import edu.northeastern.a6_group8.Model.Chat;
+import edu.northeastern.a6_group8.Model.Message;
+import edu.northeastern.a6_group8.Model.Sticker;
 import edu.northeastern.a6_group8.R;
 
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

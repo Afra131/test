@@ -1,4 +1,4 @@
-package Fragments;
+package edu.northeastern.a6_group8.Fragments;
 
 import android.os.Bundle;
 
@@ -21,8 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import Adapter.StickerReceivedAdapter;
-import Model.StickerReceived;
+import edu.northeastern.a6_group8.Adapter.StickerReceivedAdapter;
+import edu.northeastern.a6_group8.Model.StickerReceived;
 import edu.northeastern.a6_group8.R;
 import edu.northeastern.a6_group8.User;
 

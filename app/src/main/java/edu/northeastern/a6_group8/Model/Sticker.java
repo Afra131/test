@@ -1,4 +1,4 @@
-package Model;
+package edu.northeastern.a6_group8.Model;
 
 public class Sticker {
 

@@ -1,4 +1,4 @@
-package Fragments;
+package edu.northeastern.a6_group8.Fragments;
 
 import android.os.Bundle;
 

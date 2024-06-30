@@ -1,4 +1,4 @@
-package Adapter;
+package edu.northeastern.a6_group8.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import Model.Chat;
+import edu.northeastern.a6_group8.Model.Chat;
 import edu.northeastern.a6_group8.R;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>{

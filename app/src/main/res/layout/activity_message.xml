@@ -67,6 +67,13 @@
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/send_message"
             android:background="@drawable/ic_send"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/stickerList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/editMsg"
+            android:visibility="gone" />
         
     </RelativeLayout>
 </RelativeLayout>

@@ -90,12 +90,16 @@ public class StickerActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
         viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
         UsersFragment userFragment = new UsersFragment();
+        StickerSentFragment stickerSentFragment = new StickerSentFragment();
+        StickerRecievedFragment stickerRecievedFragment = new StickerRecievedFragment();
         Bundle bundle = new Bundle();
         bundle.putString("username", username);
         userFragment.setArguments(bundle);
+        stickerSentFragment.setArguments(bundle);
+        stickerRecievedFragment.setArguments(bundle);
         viewPagerAdapter.addFragment(userFragment, "Users");
-        viewPagerAdapter.addFragment(new StickerSentFragment(), "Stickers sent");
-        viewPagerAdapter.addFragment(new StickerRecievedFragment(), "Stickers Received");
+        viewPagerAdapter.addFragment(stickerSentFragment, "Stickers sent");
+        viewPagerAdapter.addFragment(stickerRecievedFragment, "Stickers Received");
         viewPager.setAdapter(viewPagerAdapter);
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) ->
                 tab.setText(viewPagerAdapter.getPageTitle(position))

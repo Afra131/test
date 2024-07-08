@@ -65,6 +65,7 @@ public class MessageActivity extends AppCompatActivity {
     StickerAdapter stickerAdapter;
     MessageAdapter messageAdapter;
     String userid;
+    String currentName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +100,7 @@ public class MessageActivity extends AppCompatActivity {
 
         intent = getIntent();
         userid = intent.getStringExtra("userid");
-        String currentName = intent.getStringExtra("username");
+        currentName = intent.getStringExtra("username");
         if (currentName != null) {
             getSenderId(currentName);
         }
@@ -208,7 +209,7 @@ public class MessageActivity extends AppCompatActivity {
                         arrStickers.add(sticker);
                     }
                 }
-                stickerAdapter = new StickerAdapter(arrStickers, MessageActivity.this, senderId, userid);
+                stickerAdapter = new StickerAdapter(arrStickers, MessageActivity.this, senderId, userid, senderId);
                 stickerList.setAdapter(stickerAdapter);
             }
 
@@ -310,4 +311,5 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
     }
+
 }

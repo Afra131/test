@@ -1,8 +1,14 @@
 package edu.northeastern.a6_group8.Fragments;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,8 +29,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import edu.northeastern.a6_group8.Adapter.StickerReceivedAdapter;
+import edu.northeastern.a6_group8.MainActivity;
+import edu.northeastern.a6_group8.MessageActivity;
 import edu.northeastern.a6_group8.Model.StickerReceived;
 import edu.northeastern.a6_group8.R;
+import edu.northeastern.a6_group8.StickerActivity;
 import edu.northeastern.a6_group8.User;
 
 public class StickerRecievedFragment extends Fragment {

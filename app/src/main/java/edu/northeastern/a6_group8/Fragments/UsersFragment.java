@@ -53,7 +53,7 @@ public class UsersFragment extends Fragment {
                 arrUsers.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
-                    if (user != null && !user.getUsername().equals(username)) {
+                    if (user != null) {
                         arrUsers.add(user);
                     }
                 }
